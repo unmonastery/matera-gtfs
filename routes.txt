@@ -1,2 +1,2 @@
-route_id	agency_id	route_short_name	route_long_name	route_type	route_color	route_text_color
-9	1	9	Linea 9	3	BABAB7	0
+route_id,agency_id,route_short_name,route_long_name,route_type,route_color,route_text_color
+9,1,9,Linea,9,3,BABAB7,0
