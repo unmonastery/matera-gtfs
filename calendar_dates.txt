@@ -1,0 +1,3 @@
+service_id	date	exception_type
+s0001	20140131	2
+s0002	20140131	1
