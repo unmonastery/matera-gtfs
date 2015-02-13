@@ -1,0 +1,19 @@
+{
+  "name": "matera-gtfs",
+  "version": "0.0.0",
+  "description": "Project using [MapOurTransit](https://github.com/mapourtransit) toolkit to create GTFS feed for Matera.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unmonastery/matera-gtfs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unmonastery/matera-gtfs/issues"
+  },
+  "homepage": "https://github.com/unmonastery/matera-gtfs"
+}
