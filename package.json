@@ -15,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/unmonastery/matera-gtfs/issues"
   },
-  "homepage": "https://github.com/unmonastery/matera-gtfs"
+  "homepage": "https://github.com/unmonastery/matera-gtfs",
+  "config": {
+    "miccolis": {
+      "description": "timetables",
+      "url": "https://docs.google.com/spreadsheets/d/1DfEkaW6GkFhB-xMVdlqWx9Qiavknx00SMjE84ulK3RM/export?gid=0&format=csv"
+    }
+  },
+  "dependencies": {
+    "es6-promise": "^2.0.1",
+    "grunt": "^0.4.5",
+    "superagent": "^0.21.0",
+    "ya-csv": "^0.9.4"
+  }
 }
