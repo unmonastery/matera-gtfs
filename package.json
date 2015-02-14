@@ -20,11 +20,24 @@
     "miccolis": {
       "description": "timetables",
       "url": "https://docs.google.com/spreadsheets/d/1DfEkaW6GkFhB-xMVdlqWx9Qiavknx00SMjE84ulK3RM/export?gid=0&format=csv"
+    },
+    "data": {
+      "miccolis": {
+        "format": "csv",
+        "path": "./cache/miccolis.csv"
+      },
+      "trips": {
+        "format": "csv",
+        "path": "gtfs/trips.csv"
+      }
     }
   },
   "dependencies": {
+    "csvjson": "^1.0.3",
     "es6-promise": "^2.0.1",
     "grunt": "^0.4.5",
+    "json-2-csv": "^1.0.8",
+    "lodash": "^3.2.0",
     "superagent": "^0.21.0",
     "ya-csv": "^0.9.4"
   }

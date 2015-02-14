@@ -1,2 +1,6 @@
 cache
+gtfs/trips.txt
+gtfs/stop_times.txt
+gtfs/calendar.txt
+gtfs/frequencies.txt
 node_modules
