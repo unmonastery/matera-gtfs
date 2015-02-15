@@ -9,6 +9,34 @@ var gtfsMaker = require('gtfs-maker');
 var loadData = gtfsMaker.load;
 var saveDataAsCsv = gtfsMaker.saveAsCsv;
 
+/**
+ * create a timetable from Miccolis file
+ *
+ * if lines not specified, upload all available lines
+ * otherwise only lines in the set
+ *
+ */
+function loadTimetables(lines){
+  var rootDir = './extracted/timetables/',
+      table = {};
+  fs.readdirSync( rootDir )
+    .forEach(function(filename){
+      var matches = /MT(.*)\.csv/.exec(filename);
+      if ( !matches ){
+        console.error('Malformed filename: ' + filename + '. Correct syntax: ".*MT.*\.csv".');
+        return; // skip
+      }
+      var name = matches[1];
+      if ( !lines || _.contains(lines, name) ){
+        table[ name ] = _.reject(
+                  csvjson.toObject(rootDir + filename).output,
+                  function(obj){ return obj.id === ''; } // remove rows with no stop
+              );
+      }
+   });
+  return table;
+}
+
 // TODO
 // gtfsMaker.config
 // override directories
@@ -51,7 +79,7 @@ module.exports = function(grunt){
     var tripsBuilder = require('./builders/trips');
     var trips = tripsBuilder( loadData(['masters', 'miccolis']) );
 
-    saveData(trips, './gtfs/trips.txt')
+    saveDataAsCsv(trips, './gtfs/trips.txt')
       .catch(function(err){
         console.log(err);
       }).then(done);
@@ -64,7 +92,7 @@ module.exports = function(grunt){
     var calendarBuilder = require('./builders/calendar');
     var calendar = calendarBuilder( loadData(['miccolis']) );
 
-    saveData(calendar, './gtfs/calendar.txt')
+    saveDataAsCsv(calendar, './gtfs/calendar.txt')
       .catch(function(err){
         console.log(err);
       })
