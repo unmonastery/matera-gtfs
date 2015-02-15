@@ -125,7 +125,12 @@ module.exports = function(grunt){
 
   grunt.registerTask('stop_times', function(){
     var done = this.async();
-    var stopTimes = gtfsMaker.builders.stopTimes( loadData([ 'masters', 'routes', 'stops', 'timetables', 'trips']) );
+    var stopTimes = gtfsMaker.builders.stopTimes(
+      loadData([ 'masters', 'routes', 'stops', 'timetables', 'trips']),
+      {
+        exclude:['9', '14', '6/A', '6/B', '11', '8', '7']
+      }
+    );
     saveDataAsCsv( stopTimes, './gtfs/stop_times.txt' )
       .catch(function(err){
         console.log(err);
