@@ -36,9 +36,7 @@
     "es6-promise": "^2.0.1",
     "grunt": "^0.4.5",
     "gtfs-maker": "git+https://github.com/mapourtransit/gtfs-maker.git#external-package",
-    "json-2-csv": "^1.0.8",
     "lodash": "^3.2.0",
-    "superagent": "^0.21.0",
-    "timetables": "git+https://github.com/mapourtransit/gtfs-maker.git"
+    "superagent": "^0.21.0"
   }
 }

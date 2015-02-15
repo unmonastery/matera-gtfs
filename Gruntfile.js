@@ -2,31 +2,16 @@ var config = require('./package.json').config;
 
 var request = require('superagent');
 var Promise = require('es6-promise').Promise;
-var converter = require('json-2-csv');
+
 var fs = require('fs');
 
 var gtfsMaker = require('gtfs-maker');
 var loadData = gtfsMaker.load;
+var saveDataAsCsv = gtfsMaker.saveAsCsv;
 
 // TODO
 // gtfsMaker.config
 // override directories
-
-// TODO move to gtfs-maker
-function saveData(data, filepath){
-  return new Promise(function(resolve, reject){
-    converter.json2csv(data, function(err, csv){
-      if (err){
-        reject(err);
-      } else {
-        fs.writeFileSync( filepath, csv );
-        resolve();
-      }
-
-    });
-  });
-
-}
 
 module.exports = function(grunt){
 
@@ -91,12 +76,10 @@ module.exports = function(grunt){
   });
 
   grunt.registerTask('frequencies', function(){
-
     var done = this.async();
     var frequenciesBuilder = require('./builders/frequencies');
     var frequencies = frequenciesBuilder( loadData(['miccolis']) );
-
-    saveData(frequencies, './gtfs/frequencies.txt')
+    saveDataAsCsv( frequencies, './gtfs/frequencies.txt' )
       .catch(function(err){
         console.log(err);
       }).then(done);

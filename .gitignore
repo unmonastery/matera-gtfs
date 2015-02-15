@@ -3,4 +3,5 @@ gtfs/trips.txt
 gtfs/stop_times.txt
 gtfs/calendar.txt
 gtfs/frequencies.txt
+gtfs/routes.txt
 node_modules
