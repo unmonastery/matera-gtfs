@@ -86,4 +86,13 @@ module.exports = function(grunt){
 
   });
 
+  grunt.registerTask('routes', function(){
+    var done = this.async();
+    var routes = gtfsMaker.builders.routes( loadData(['masters']) );
+    saveDataAsCsv( routes, './gtfs/routes.txt' )
+      .catch(function(err){
+        console.log(err);
+      }).then(done);
+  });
+
 };
