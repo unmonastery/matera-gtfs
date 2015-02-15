@@ -123,4 +123,13 @@ module.exports = function(grunt){
       }).then(done);
   });
 
+  grunt.registerTask('stop_times', function(){
+    var done = this.async();
+    var stopTimes = gtfsMaker.builders.stopTimes( loadData([ 'masters', 'routes', 'stops', 'timetables', 'trips']) );
+    saveDataAsCsv( stopTimes, './gtfs/stop_times.txt' )
+      .catch(function(err){
+        console.log(err);
+      }).then(done);
+  });
+
 };
