@@ -6,7 +6,17 @@ var mkTripId = require('../lib/utils').mkTripId;
 
 module.exports = function(data){
 
-  var miccolis = data[0];
+  function findMaster(relation){
+    return _.result(_.find(masters, function(master){
+      var result = _.find(master.members, function(member){
+        return member.ref == relation
+      });
+      return !_.isUndefined(result);
+    }), 'id');
+  };
+
+  var masters = data[0].elements;
+  var miccolis = data[1];
 
   var results = [];
 
@@ -14,20 +24,18 @@ module.exports = function(data){
 
     var serviceId = mkServiceId( row );
     var tripId = mkTripId( row );
+    var routeId = findMaster(row.osm_relation_id) || row.osm_relation_id;
 
     if ( !serviceId ){
       console.error('cannot create service id for ' + JSON.stringify(row));
     }
 
-    // TODO row.osm_relation_id is missing in intermediate file
     results.push({
-      // TODO use row.osm_relation_id to find master relation
-      'route_id':'',
+      'route_id':routeId,
       'service_id':serviceId,
       'trip_id': tripId,
       'trip_headsign':row.to,
-      // TODO use row.osm_relation_id
-      'shape_id':''
+      'shape_id':row.osm_relation_id
     });
 
   });

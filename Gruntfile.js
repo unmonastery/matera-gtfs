@@ -2,27 +2,18 @@ var config = require('./package.json').config;
 
 var request = require('superagent');
 var Promise = require('es6-promise').Promise;
-var csv = require('csvjson');
 var converter = require('json-2-csv');
 var fs = require('fs');
 
-function loadData(list){
+var gtfsMaker = require('gtfs-maker');
+var loadData = gtfsMaker.load;
 
-  return list.map(function(type){
-    var file = config.data[ type ];
-    var content;
+// TODO
+// gtfsMaker.config
+// override directories
 
-    if (!file)
-      throw new Error('file ' + type + ' not found.');
-
-    // TODO select proper parser using file.format information
-    return csv.toObject( file.path ).output;
-
-  });
-}
-
+// TODO move to gtfs-maker
 function saveData(data, filepath){
-  console.log(filepath)
   return new Promise(function(resolve, reject){
     converter.json2csv(data, function(err, csv){
       if (err){
@@ -72,7 +63,7 @@ module.exports = function(grunt){
   grunt.registerTask('trips', function(){
     var done = this.async();
     var tripsBuilder = require('./builders/trips');
-    var trips = tripsBuilder( loadData(['miccolis']) );
+    var trips = tripsBuilder( loadData(['masters', 'miccolis']) );
 
     saveData(trips, './gtfs/trips.txt')
       .catch(function(err){

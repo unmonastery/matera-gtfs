@@ -1,0 +1,3 @@
+[submodule "packages/gtfs-maker"]
+	path = packages/gtfs-maker
+	url = https://github.com/mapourtransit/gtfs-maker
