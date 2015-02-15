@@ -52,11 +52,12 @@ module.exports = function(grunt){
       fs.writeFileSync('./cache/miccolis.csv', data);
     }
 
-    fetchCSV()
-      .then(saveData)
-      .catch(function(err){
+    gtfsMaker.cache()
+      .then(
+        fetchCSV().then(saveData)
+      ).catch(function(err){
         console.log(err);
-      }).then(done);
+    }).then(done);
 
   });
 
