@@ -9,37 +9,36 @@ var gtfsMaker = require('gtfs-maker');
 var loadData = gtfsMaker.load;
 var saveDataAsCsv = gtfsMaker.saveAsCsv;
 
-/**
- * create a timetable from Miccolis file
- *
- * if lines not specified, upload all available lines
- * otherwise only lines in the set
- *
- */
-function loadTimetables(lines){
-  var rootDir = './extracted/timetables/',
-      table = {};
-  fs.readdirSync( rootDir )
-    .forEach(function(filename){
-      var matches = /MT(.*)\.csv/.exec(filename);
+
+gtfsMaker.config({
+  // TODO find better names for miccolis files
+  miccolis:{
+    format:'csv',
+    ext:'.csv',
+    dir:'./cache/'
+  },
+  timetables:{
+    isDirectory:true,
+    format:'csv',
+    ext:'.csv',
+    dir:'./extracted/timetables/',
+    transform:function(item){
+      function lookup(lineName){
+        return lineName;
+      }
+      var matches = /MT(.*)\.csv/.exec(item.name);
       if ( !matches ){
-        console.error('Malformed filename: ' + filename + '. Correct syntax: ".*MT.*\.csv".');
-        return; // skip
+        throw new Error('Timetables file not in correct format.');
       }
       var name = matches[1];
-      if ( !lines || _.contains(lines, name) ){
-        table[ name ] = _.reject(
-                  csvjson.toObject(rootDir + filename).output,
-                  function(obj){ return obj.id === ''; } // remove rows with no stop
-              );
-      }
-   });
-  return table;
-}
-
-// TODO
-// gtfsMaker.config
-// override directories
+      var osmId = lookup( name );
+      return {
+        osmId:osmId,
+        stopTimes:item.content
+      };
+    }
+  }
+});
 
 module.exports = function(grunt){
 
