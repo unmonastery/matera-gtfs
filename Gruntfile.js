@@ -48,6 +48,12 @@ gtfsMaker.config({
 
 module.exports = function(grunt){
 
+  // utility function to parse command line options
+  function fetchOptions(){
+    return {
+      include:grunt.option( "include" ).toString().split(',')
+    };
+  }
 
   grunt.registerTask('cache', function(){
 
@@ -82,7 +88,7 @@ module.exports = function(grunt){
   grunt.registerTask('trips', function(){
     var done = this.async();
     var tripsBuilder = require('./builders/trips');
-    var trips = tripsBuilder( loadData(['masters', 'miccolis']) );
+    var trips = tripsBuilder( loadData(['masters', 'miccolis']), fetchOptions() );
 
     saveDataAsCsv(trips, './gtfs/trips.txt')
       .catch(function(err){
@@ -95,7 +101,7 @@ module.exports = function(grunt){
 
     var done = this.async();
     var calendarBuilder = require('./builders/calendar');
-    var calendar = calendarBuilder( loadData(['miccolis']) );
+    var calendar = calendarBuilder( loadData(['miccolis']), fetchOptions() );
 
     saveDataAsCsv(calendar, './gtfs/calendar.txt')
       .catch(function(err){
@@ -111,7 +117,7 @@ module.exports = function(grunt){
   grunt.registerTask('frequencies', function(){
     var done = this.async();
     var frequenciesBuilder = require('./builders/frequencies');
-    var frequencies = frequenciesBuilder( loadData(['miccolis']) );
+    var frequencies = frequenciesBuilder( loadData(['miccolis']), fetchOptions() );
     saveDataAsCsv( frequencies, './gtfs/frequencies.txt' )
       .catch(function(err){
         console.log(err);
@@ -121,7 +127,7 @@ module.exports = function(grunt){
 
   grunt.registerTask('routes', function(){
     var done = this.async();
-    var routes = gtfsMaker.builders.routes( loadData(['masters']) );
+    var routes = gtfsMaker.builders.routes( loadData(['masters']), fetchOptions() );
     saveDataAsCsv( routes, './gtfs/routes.txt' )
       .catch(function(err){
         console.log(err);
@@ -132,9 +138,7 @@ module.exports = function(grunt){
     var done = this.async();
     var stopTimes = gtfsMaker.builders.stopTimes(
       loadData([ 'masters', 'routes', 'stops', 'timetables', 'trips']),
-      {
-        exclude:['9', '14', '6/A', '6/B', '11', '8', '7']
-      }
+      fetchOptions()
     );
     saveDataAsCsv( stopTimes, './gtfs/stop_times.txt' )
       .catch(function(err){
