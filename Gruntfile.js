@@ -1,14 +1,17 @@
 var config = require('./package.json').config;
+// upload settings specific to Miccolis
+var settings = require('./miccolis.json');
+
 
 var request = require('superagent');
 var Promise = require('es6-promise').Promise;
 
 var fs = require('fs');
+var _ = require('lodash');
 
 var gtfsMaker = require('gtfs-maker');
 var loadData = gtfsMaker.load;
 var saveDataAsCsv = gtfsMaker.saveAsCsv;
-
 
 gtfsMaker.config({
   // TODO find better names for miccolis files
@@ -24,7 +27,10 @@ gtfsMaker.config({
     dir:'./extracted/timetables/',
     transform:function(item){
       function lookup(lineName){
-        return lineName;
+        return _.result(
+          _.find( settings.lines, function(line){
+            return line.number == lineName;
+          }), 'osmId' );
       }
       var matches = /MT(.*)\.csv/.exec(item.name);
       if ( !matches ){
