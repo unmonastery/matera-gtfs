@@ -1,7 +1,4 @@
 var config = require('./package.json').config;
-// upload settings specific to Miccolis
-var settings = require('./miccolis.json');
-
 
 var request = require('superagent');
 var Promise = require('es6-promise').Promise;
@@ -9,39 +6,40 @@ var Promise = require('es6-promise').Promise;
 var fs = require('fs');
 var _ = require('lodash');
 
-var gtfsMaker = require('gtfs-maker');
-var loadData = gtfsMaker.load;
-var saveDataAsCsv = gtfsMaker.saveAsCsv;
+var settings = require('./miccolis.json');
+var GtfsMaker = require('gtfs-maker');
 
-gtfsMaker.config({
-  // TODO find better names for miccolis files
-  miccolis:{
-    format:'csv',
-    ext:'.csv',
-    dir:'./cache/'
-  },
-  timetables:{
-    isDirectory:true,
-    format:'csv',
-    ext:'.csv',
-    dir:'./extracted/timetables/',
-    transform:function(item){
-      function lookup(lineName){
-        return _.result(
-          _.find( settings.lines, function(line){
-            return line.number == lineName;
-          }), 'osmId' );
+var gtfsMaker = new GtfsMaker({
+  settings:settings,
+  data:{
+    miccolis:{
+      format:'csv',
+      ext:'.csv',
+      dir:'./cache/'
+    },
+    timetables:{
+      isDirectory:true,
+      format:'csv',
+      ext:'.csv',
+      dir:'./extracted/timetables/',
+      transform:function(item){
+        function lookup(lineName){
+          return _.result(
+            _.find( settings.lines, function(line){
+              return line.number == lineName;
+            }), 'osmId' );
+        }
+        var matches = /MT(.*)\.csv/.exec(item.name);
+        if ( !matches ){
+          throw new Error('Timetables file not in correct format.');
+        }
+        var name = matches[1];
+        var osmId = lookup( name );
+        return {
+          osmId:osmId,
+          stopTimes:item.content
+        };
       }
-      var matches = /MT(.*)\.csv/.exec(item.name);
-      if ( !matches ){
-        throw new Error('Timetables file not in correct format.');
-      }
-      var name = matches[1];
-      var osmId = lookup( name );
-      return {
-        osmId:osmId,
-        stopTimes:item.content
-      };
     }
   }
 });
@@ -50,8 +48,12 @@ module.exports = function(grunt){
 
   // utility function to parse command line options
   function fetchOptions(){
+    var include = grunt.option( "include" );
+    if (!include){
+      throw new Error('No line included!');
+    }
     return {
-      include:grunt.option( "include" ).toString().split(',')
+      include:include.toString().split(',')
     };
   }
 
@@ -88,9 +90,9 @@ module.exports = function(grunt){
   grunt.registerTask('trips', function(){
     var done = this.async();
     var tripsBuilder = require('./builders/trips');
-    var trips = tripsBuilder( loadData(['masters', 'miccolis']), fetchOptions() );
+    var trips = tripsBuilder( gtfsMaker.loadData(['masters', 'miccolis']), fetchOptions() );
 
-    saveDataAsCsv(trips, './gtfs/trips.txt')
+    gtfsMaker.saveDataAsCsv(trips, './gtfs/trips.txt')
       .catch(function(err){
         console.log(err);
       }).then(done);
@@ -101,9 +103,9 @@ module.exports = function(grunt){
 
     var done = this.async();
     var calendarBuilder = require('./builders/calendar');
-    var calendar = calendarBuilder( loadData(['miccolis']), fetchOptions() );
+    var calendar = calendarBuilder( gtfsMaker.loadData(['miccolis']), fetchOptions() );
 
-    saveDataAsCsv(calendar, './gtfs/calendar.txt')
+    gtfsMaker.saveDataAsCsv(calendar, './gtfs/calendar.txt')
       .catch(function(err){
         console.log(err);
       })
@@ -117,8 +119,8 @@ module.exports = function(grunt){
   grunt.registerTask('frequencies', function(){
     var done = this.async();
     var frequenciesBuilder = require('./builders/frequencies');
-    var frequencies = frequenciesBuilder( loadData(['miccolis']), fetchOptions() );
-    saveDataAsCsv( frequencies, './gtfs/frequencies.txt' )
+    var frequencies = frequenciesBuilder( gtfsMaker.loadData(['miccolis']), fetchOptions() );
+    gtfsMaker.saveDataAsCsv( frequencies, './gtfs/frequencies.txt' )
       .catch(function(err){
         console.log(err);
       }).then(done);
@@ -127,8 +129,8 @@ module.exports = function(grunt){
 
   grunt.registerTask('routes', function(){
     var done = this.async();
-    var routes = gtfsMaker.builders.routes( loadData(['masters']), fetchOptions() );
-    saveDataAsCsv( routes, './gtfs/routes.txt' )
+    var routes = gtfsMaker.builders.routes( gtfsMaker.loadData(['masters']), fetchOptions() );
+    gtfsMaker.saveDataAsCsv( routes, './gtfs/routes.txt' )
       .catch(function(err){
         console.log(err);
       }).then(done);
@@ -137,10 +139,10 @@ module.exports = function(grunt){
   grunt.registerTask('stop_times', function(){
     var done = this.async();
     var stopTimes = gtfsMaker.builders.stopTimes(
-      loadData([ 'masters', 'routes', 'stops', 'timetables', 'trips']),
+      gtfsMaker.loadData([ 'masters', 'routes', 'stops', 'timetables', 'trips']),
       fetchOptions()
     );
-    saveDataAsCsv( stopTimes, './gtfs/stop_times.txt' )
+    gtfsMaker.saveDataAsCsv( stopTimes, './gtfs/stop_times.txt' )
       .catch(function(err){
         console.log(err);
       }).then(done);
