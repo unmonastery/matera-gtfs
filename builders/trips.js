@@ -4,7 +4,7 @@ var mkServiceId = require('../lib/utils').mkServiceId;
 var mkTripId = require('../lib/utils').mkTripId;
 
 
-module.exports = function(data){
+module.exports = function(data, options){
 
   function findMaster(relation){
     return _.result(_.find(masters, function(master){
@@ -20,7 +20,9 @@ module.exports = function(data){
 
   var results = [];
 
-  miccolis.forEach(function( row ){
+  var includedLines = _.select(miccolis, function(row) { return _.contains(options.include, row.bus_number); });
+
+  includedLines.forEach(function( row ){
 
     var serviceId = mkServiceId( row );
     var tripId = mkTripId( row );
