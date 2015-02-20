@@ -4,5 +4,7 @@ gtfs/stop_times.txt
 gtfs/calendar.txt
 gtfs/frequencies.txt
 gtfs/routes.txt
+gtfs/shapes.txt
+gtfs/stops.txt
 node_modules
 validation-results.html
