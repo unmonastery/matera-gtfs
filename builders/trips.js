@@ -18,7 +18,7 @@ module.exports = function(data, options){
   options = options || {};
   var include = options.include || [];
 
-  var masters = data[0].elements;
+  var masters = data[0];
   var miccolis = data[1];
 
   var results = [];
