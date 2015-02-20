@@ -148,6 +148,24 @@ module.exports = function(grunt){
       }).then(done);
   });
 
+  grunt.registerTask('shapes', function(){
+    var done = this.async();
+    var shapes = gtfsMaker.builders.shapes( gtfsMaker.loadData(['routes', 'ways', 'nodes']) );
+    gtfsMaker.saveDataAsCsv( shapes, './gtfs/shapes.txt' )
+      .catch(function(err){
+        console.log(err);
+      }).then(done);
+  });
+
+  grunt.registerTask('stops', function(){
+    var done = this.async();
+    var stops = gtfsMaker.builders.stops( gtfsMaker.loadData(['stops']) );
+    gtfsMaker.saveDataAsCsv( stops, './gtfs/stops.txt' )
+      .catch(function(err){
+        console.log(err);
+      }).then(done);
+  });
+
   grunt.registerTask('compile', ['routes', 'shapes', 'stops', 'trips', 'frequencies', 'calendar', 'stop_times']);
 
   /**
