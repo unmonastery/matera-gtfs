@@ -148,4 +148,20 @@ module.exports = function(grunt){
       }).then(done);
   });
 
+  /**
+   * validate GTFS
+   * FIXME: move to GtfsMaker?
+   */
+  grunt.loadNpmTasks('grunt-exec');
+
+  grunt.initConfig({
+    exec: {
+      validate: {
+        command: 'python2 ./utils/transitfeed/feedvalidator.py gtfs/'
+      }
+    }
+  });
+
+  grunt.registerTask('validate', ['exec:validate']);
+
 };
