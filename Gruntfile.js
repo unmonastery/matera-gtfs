@@ -150,7 +150,9 @@ module.exports = function(grunt){
 
   grunt.registerTask('shapes', function(){
     var done = this.async();
-    var shapes = gtfsMaker.builders.shapes( gtfsMaker.loadData(['routes', 'ways', 'nodes']) );
+    var shapes = gtfsMaker.builders.shapes(
+      gtfsMaker.loadData(['masters', 'routes', 'ways', 'nodes']),
+      fetchOptions() );
     gtfsMaker.saveDataAsCsv( shapes, './gtfs/shapes.txt' )
       .catch(function(err){
         console.log(err);
