@@ -15,12 +15,15 @@ module.exports = function(data, options){
     }), 'id');
   };
 
+  options = options || {};
+  var include = options.include || [];
+
   var masters = data[0].elements;
   var miccolis = data[1];
 
   var results = [];
 
-  var includedLines = _.select(miccolis, function(row) { return _.contains(options.include, row.bus_number); });
+  var includedLines = _.select(miccolis, function(row) { return _.contains(include, row.bus_number); });
 
   includedLines.forEach(function( row ){
 
