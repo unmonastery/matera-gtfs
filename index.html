@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>unTransit@Matera</h1>
+					<h3>there and back again</h3>
+					<p>
+						<small>by <a href="http://twitter.com/elfPavlik">@elfPavlik</a>/<a href="http://twitter.com/m4stn">@m4stn</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>the unMonastery rides again</h2>
+					<p>
+						<a href="http://unmonastery.org/">
+							unMonastery
+						</a>
+						&bull;
+						<a href="http://www.comune.matera.it/it/home-page/item/6123-open-data-contest-ecco-i-vincitori">
+							opendata challenge
+						</a>
+						&bull;
+						<a href="https://edgeryders.eu/en/unmonastery/hacking-public-transport-matera-and-beyond">
+							back again
+						</a>
+						&bull;
+						<a href="https://edgeryders.eu/en/unmonastery/the-unmonastery-rides-again-untransit-development-sprint">
+							unBlog
+						</a>
+					</p>
+				</section>
+
+				<section>
+					<h2>Summary</h2>
+					<ul>
+						<li>The Past</li>
+						<li>Dev Sprint 02/2015</li>
+						<li>Our unBusiness Model</li>
+						<li>Workshop</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>The Past</h1>
+				</section>
+
+				<section>
+					<h2>What we did</h2>
+					<p>
+					<ul>
+						<li>Lines/Stops mapped on OpenStreetMap</li>
+						<li>GtfsMaker &bull; <a href="https://github.com/mapourtransit/gtfs-maker">repo</a></li>
+						<li>Ulm LiveMap &bull; <a href="http://87.230.17.190:7777/map">demo</a></li>
+						<li>Our data are currently used by other 3rd party apps!</li>
+					</ul>
+				</p>
+				</section>
+
+				<section>
+					<blockquote>
+						"We do not produce opendata, we produce subversion"
+					</blockquote>
+					Anonymous monk ~ 1230 ac
+					<p><small>credits to <a href="http://www.progettopecoranera.it">Pecoranera</a></small></p>
+				</section>
+
+				<section>
+					<h1>Dev Sprint 02/2015</h1>
+				</section>
+
+				<section>
+					<h2>Our plan</h2>
+					<p>
+						<ul>
+							<li>Improve the dataset</li>
+							<li>Make code base more reusable</li>
+							<li>Spread the word</li>
+							<li>Connect people</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<p>
+						<img src="img/workflow.png" />
+					</p>
+				</section>
+
+				<section>
+					<h2>unTransit@Potenza</h2>
+					<p>
+						<img src="img/potenza.jpg" width="60%"/>
+					</p>
+					<p>
+						19th February 2015
+					</p>
+					<p>
+						<small>Credits to Federico Amato</small>
+					</p>
+				</section>
+
+				<section>
+					<h1>The unBusiness Plan</h1>
+				</section>
+
+				<section>
+					<p>
+						<img src="img/business.png" />
+					</p>
+				</section>
+
+
+				<section>
+					<h1>Open Spendings</h1>
+				</section>
+
+				<section>
+					<canvas id="spendingChart" width="400" height="400"></canvas>
+					<p>
+						<span style="background-color:#F7464A">FOOD</span> &bull;
+						<span style="background-color:#46BFBD">GEARS</span> &bull;
+						<span style="background-color:#FDB45C">FLAT</span> &bull;
+						<span style="background-color:#3399FF">TRAVEL</span>
+					</p>
+					<p>
+						Our spendings are on <a href="http://dati.comune.matera.it/en/dataset/spendings-by-edgeryders/">http://dati.comune.matera.it</a>
+					</p>
+				</section>
+
+				<section>
+					<p>
+						Thanks to Alberto Cottica, Piersoft, Michele Salerno, Vincenzo Altieri, Ida Leone, Beniamino Murgante, OpenLab Matera, Eco.
+					</p>
+				</section>
+
+				<section>
+					<h1>Workshop</h1>
+				</section>
+
+				<section>
+					<h2>Gtfs Makers' Principles</h2>
+					<p>
+						<ul>
+							<li>Start simple</li>
+							<li>Wrong is better than nothing</li>
+							<li>Issue tracking</li>
+							<li>Eventually correct and complete</li>
+							<li>Data stewardship</li>
+						</ul>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="js/Chart.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+			var ctx = document.getElementById("spendingChart").getContext("2d");
+			var options = {
+    		//Boolean - Whether we should show a stroke on each segment
+    		segmentShowStroke : false,
+    		//String - The colour of each segment stroke
+    		segmentStrokeColor : "#fff",
+				//Number - The width of each segment stroke
+    		segmentStrokeWidth : 2,
+				//Number - The percentage of the chart that we cut out of the middle
+    		percentageInnerCutout : 0, // This is 0 for Pie charts
+				//Number - Amount of animation steps
+    		animationSteps : 100,
+				//String - Animation easing effect
+    		animationEasing : "easeOutBounce",
+				//Boolean - Whether we animate the rotation of the Doughnut
+    		animateRotate : true,
+				//Boolean - Whether we animate scaling the Doughnut from the centre
+    		animateScale : false,
+				//String - A legend template
+    	legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+		};
+
+
+			var data = [
+				{
+					value: 161.46,
+					color:"#F7464A",
+					highlight: "#FF5A5E",
+					label: "Food"
+				},
+				{
+					value: 18,
+					color: "#46BFBD",
+					highlight: "#5AD3D1",
+					label: "Equipment"
+				},
+				{
+					value: 600,
+					color: "#FDB45C",
+					highlight: "#FFC870",
+					label: "Accomodation"
+				},
+				{
+					value: 356.95,
+					color: "#3399FF",
+					highlight: "#99CCFF",
+					label: "Travel"
+				}
+			];
+			var myPieChart = new Chart(ctx).Pie(data,options);
+
+			// var legendHolder = document.createElement('div');
+			// legendHolder.innerHTML = myPieChart.generateLegend();
+      // document.getElementById("legend").appendChild( legendHolder.firstChild );
+		</script>
+
+	</body>
+</html>
