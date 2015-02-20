@@ -38,6 +38,7 @@
     "grunt-exec": "^0.4.6",
     "gtfs-maker": "git+https://github.com/mapourtransit/gtfs-maker.git#external-package",
     "lodash": "^3.2.0",
+    "moment": "^2.9.0",
     "superagent": "^0.21.0"
   }
 }
