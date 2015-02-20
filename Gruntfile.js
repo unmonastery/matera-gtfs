@@ -148,6 +148,8 @@ module.exports = function(grunt){
       }).then(done);
   });
 
+  grunt.registerTask('compile', ['routes', 'shapes', 'stops', 'trips', 'frequencies', 'calendar', 'stop_times']);
+
   /**
    * validate GTFS
    * FIXME: move to GtfsMaker?
