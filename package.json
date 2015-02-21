@@ -36,7 +36,7 @@
     "es6-promise": "^2.0.1",
     "grunt": "^0.4.5",
     "grunt-exec": "^0.4.6",
-    "gtfs-maker": "git+https://github.com/mapourtransit/gtfs-maker.git#external-package",
+    "gtfs-maker": "git+https://github.com/mapourtransit/gtfs-maker.git",
     "lodash": "^3.2.0",
     "moment": "^2.9.0",
     "superagent": "^0.21.0"
