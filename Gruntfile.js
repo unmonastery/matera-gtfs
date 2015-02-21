@@ -179,7 +179,7 @@ module.exports = function(grunt){
   grunt.initConfig({
     exec: {
       validate: {
-        command: 'python2 ./utils/transitfeed/feedvalidator.py gtfs/'
+        command: 'python2.7 ./utils/transitfeed/feedvalidator.py gtfs/'
       }
     }
   });

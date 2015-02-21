@@ -13,5 +13,11 @@ http://dati.comune.matera.it/en/dataset/osm-challenges
 
 ## Commands
 
+if you don't have grunt you need to install it first
+     $ npm intall -g grunt-cli
+
+next
+
+     $ npm install
      $ grunt cache
      $ grunt [file-to-create]
